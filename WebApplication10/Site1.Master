@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="WebApplication10.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>.content {
+  max-width: 960px;
+  margin: auto;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  align-content:center;
+}
+</style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <br />
+        <div class="content">
+        <asp:Label ID="Label1" runat="server" Text="Label" >Project Management System</asp:Label>
+            </div>
+        <br />
+        <div class="content">
+            <br />
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Functionalities" runat ="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID ="ContentPlaceHolder3" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <br />
+        <div class="content"><asp:Label ID="Label2" runat="server" Text="Label">Made by Aditya & Malaika</asp:Label>
+        </div>
+           <br />
+    </form>
+</body>
+</html>

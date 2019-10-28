@@ -61,26 +61,17 @@ namespace WebApplication10
             string email = TextBox1.Text;
             string password = Password1.Text;
 
-            string query = "select * from OldPasswords where email = '" + email + "' and password = '"+password + "' order by timestamp";
-            SqlCommand check = new SqlCommand(query, conn);
-            check.CommandType = System.Data.CommandType.Text;
-            SqlDataReader sdr = check.ExecuteReader();
-            bool canuse = true;
-            int count = 5;
-            while(sdr.Read())
-            {
-                if (ReadSingleRow((IDataRecord)sdr, password))
-                    {
-                    canuse = false;
-                    }
-                count--;
-                if (count == 0)
-                    break;
-            }
-            sdr.Close();
-            if (canuse == true)
-            {
-                SqlCommand cmd3 = new SqlCommand("select * from Validate where email = '" + email+ "'", conn);
+            //string query = "select * from OldPasswords where email = '" + email + "' and password = '"+password + "' order by timestamp";
+            //SqlCommand check = new SqlCommand(query, conn);
+            //check.CommandType = System.Data.CommandType.Text;
+            //SqlDataReader sdr = check.ExecuteReader();
+            //bool canuse = true;
+            //int count = 5;
+            //while(sdr.Read())
+//            sdr.Close();
+  //          if (canuse == true)
+    //        {
+      /*          SqlCommand cmd3 = new SqlCommand("select * from Validate where email = '" + email+ "'", conn);
                 SqlDataReader sdr3 = cmd3.ExecuteReader();
                 //string em = sdr3.GetString(0);
                 //string p = sdr3.GetString(1);
@@ -95,37 +86,49 @@ namespace WebApplication10
                     cmdHasRow.ExecuteNonQuery();
                 }
                 else
-                {
-                    sdr3.Close();
-                    SqlCommand cmd = new SqlCommand("insert into Validate values (@email1, @password1)", conn);
+                {*/
+                    //sdr3.Close();
+                    int isChecked = 0;
+                    if (CheckBox1.Checked)
+                    {
+                        isChecked = 1;
+                    }
+                    SqlCommand cmd = new SqlCommand("insert into Validate2 values (@email1, @password1, @isChecked1)", conn);
                     cmd.CommandType = System.Data.CommandType.Text;
                     SqlParameter p1 = new SqlParameter("email1", TextBox1.Text);
                     SqlParameter p2 = new SqlParameter("password1", Password1.Text);
+                    SqlParameter pChecked = new SqlParameter("isChecked1", isChecked);
                     cmd.Parameters.Add(p1);
                     cmd.Parameters.Add(p2);
+                    cmd.Parameters.Add(pChecked);
                     cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
-                }
-                SqlCommand cmd2 = new SqlCommand("insert into OldPasswords(timestamp, email, password) values (@timestamp1, @email2, @password2)", conn);
-                cmd2.CommandType = System.Data.CommandType.Text;
-                SqlParameter p3 = new SqlParameter("timestamp1", DateTime.Now);
-                SqlParameter p4 = new SqlParameter("email2", TextBox1.Text);
-                SqlParameter p5 = new SqlParameter("password2", Password1.Text);
-                cmd2.Parameters.Add(p3);
-                cmd2.Parameters.Add(p4);
-                cmd2.Parameters.Add(p5);
+            Label1.Text = "Registration Success!";
+            Label1.Visible = true;
+            Label1.ForeColor = System.Drawing.Color.Azure;
+            Response.Redirect("Login.aspx");
+            //}
+            /* SqlCommand cmd2 = new SqlCommand("insert into OldPasswords(timestamp, email, password) values (@timestamp1, @email2, @password2)", conn);
+             cmd2.CommandType = System.Data.CommandType.Text;
+             SqlParameter p3 = new SqlParameter("timestamp1", DateTime.Now);
+             SqlParameter p4 = new SqlParameter("email2", TextBox1.Text);
+             SqlParameter p5 = new SqlParameter("password2", Password1.Text);
+             cmd2.Parameters.Add(p3);
+             cmd2.Parameters.Add(p4);
+             cmd2.Parameters.Add(p5);
 
-                cmd2.ExecuteNonQuery();
-                Label1.Text = "registration success!";
-                Label1.Visible = true;
+             cmd2.ExecuteNonQuery();
+             Label1.Text = "registration success!";
+             Label1.Visible = true;*/
+            conn.Close();
             }
-            else
+            /*else
             {
                 Label1.Text = "Your password must be different from your last 5 passwords";
                 Label1.ForeColor = System.Drawing.Color.Red;
                 Label1.Visible = true;
-            }
-        }
+            }*/
+        //}
 
         protected void TextBox1_TextChanged(object sender, EventArgs e)
         {
@@ -138,6 +141,11 @@ namespace WebApplication10
         }
 
         protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+        {
+
+        }
+
+        protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
